@@ -1,3 +1,67 @@
-{% for product in list %}
-    <p>{{product}}</p>
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="row">
+    {% for product in list %}
+    <div class="col-md-5 mx-auto">
+        <div class="card-group">
+            <div class="card">
+                <a href="{% url 'products:product_detail' product.prdslug %}">
+                    {% if product.prdimage %}
+                    <img class="card-img-top" src="{{product.prdimage.url}}" alt="" height="200">
+                    {% else %}
+                    <img class="card-img-top" src=" {% static 'img/default.png' %}" alt="" height="200">
+                    {% endif %}
+                </a>
+                <div class="card-body text-center">
+                    <p class="badge bg-secondary ">{{product.prdcategory}}</p>
+                    <p>
+                        {% if product.prddisprice > 0 %}
+                        <span class="badge rounded-pill bg-primary">SALE</span>
+                        {% endif %}
+                        {% if product.prdisnew %}
+                        <span class="badge rounded-pill bg-success">NEW</span>
+                        {% endif %}
+                        {% if product.prdbestseller %}
+                        <span class="badge rounded-pill bg-danger">Bestseller</span>
+                        {% endif %}
+                    </p>
+                    <h5 class="card-title">
+                        <strong>
+                            <a class="card-link" href="{{product.get_absolute_url}}">{{product}}</a>
+                        </strong>
+                    </h5>
+                    <h1><span class="badge bg-secondary">{{product.prdprice}}</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if list.has_other_pages %}
+    <nav aria-label="" class="mt-5 center">
+        <ul class="pagination justify-content-center">
+            {% if list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{list.previous_page_number}}" tabindex="-1"
+                    aria-disabled="true">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for product_id in list.paginator.page_range %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{product_id}}">{{product_id}}</a>
+            </li>
+            {% endfor %}
+
+            {% if list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{list.next_page_number}}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock body %}

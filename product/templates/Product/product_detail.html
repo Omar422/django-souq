@@ -1,2 +1,58 @@
-<p>{{detail}}</p>
-<p>{{detail.prddesc}}</p>
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        {% if detail.prdimage %}
+        <a href="{{detail.prdimage.url}}" target="_blank">
+            <img class="img-fluid" src="{{detail.prdimage.url}}" alt="">
+        </a>
+        {% else %}
+        <img class="img-fluid" src="{% static 'img/default.png' %}" alt="">
+        {% endif %}
+    </div>
+    <div class="col-md-6 mt-5 px-5">
+        <p>
+            {% if detail.prddisprice > 0 %}
+            <a href=""><span class="badge bg-primary">SALE</span></a>
+            {% endif %}
+            {% if detail.prdisnew %}
+            <a href=""><span class="badge bg-success">NEW</span></a>
+            {% endif %}
+            {% if detail.prdbestseller %}
+            <a href=""><span class="badge bg-danger">Bestseller</span></a>
+            {% endif %}
+        </p>
+        <p>
+        <h4>{{detail}}</h4>
+        </p>
+        {% if detail.prddisprice > 0 %}
+        <p>
+            <strong> Prodcut price: </strong>
+            <del> ${{detail.prdprice}} </del> &nbsp;&nbsp;
+            <span class="badge bg-warning text-dark fs-5">${{detail.prddisprice}}</span>
+        </p>
+        {% else %}
+        <p> <strong> Prodcut price: </strong>
+            <span class="text-primary fs-5">${{detail.prdprice}}</span>
+        </p>
+        {% endif %}
+        <p> <strong> Prodcut description: </strong>{{detail.prddesc}} </p>
+    </div>
+
+    <div class="row mt-5 mx-auto">
+        <h4 class="text-center">Accessories</h4>
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="{% static 'img/default.png' %}" alt="">
+        </div>
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="{% static 'img/default.png' %}" alt="">
+        </div>
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="{% static 'img/default.png' %}" alt="">
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
