@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # installed apps:
     'product',
     'settings',
+    'django_countries',
+    "bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -139,7 +141,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT = '/product/'
-LOGOUT_REDIRECT = '/product/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']

@@ -1,13 +1,20 @@
 {% extends "base_generic.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col-md-8 mx-auto">
+            <h2 class="text-center">Signup Page</h2>
+            <form method="POST" class="form">
+                {% csrf_token %}
+                {% bootstrap_form signup_form %}
+                <div class="d-grid gap-2 mt-2">
+                    <input class="btn btn-success btn-lg" type="sumbit" value="Signup">
+                </div>
 
-<h2>Signup Form Page</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{signup_form}}
-    <input type="submit" value="Signup">
-</form>
-
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

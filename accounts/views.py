@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
+from django.urls.base import reverse
 from .models import Profile
 from .forms import SignupForm, UserForm, ProfileForm
 from django.contrib.auth import authenticate, login
 
 
 def signup(request):
+
     if request.method == 'POST':
-        signup_form = SignupForm(request.POST)
+        signup_form = SignupForm(request.POST)    
         if signup_form.is_valid():
             signup_form.save(commit=True)
             # authenticate => make sure that user is exist
@@ -14,9 +16,7 @@ def signup(request):
             user_pass = signup_form.cleaned_data['password1']
             user = authenticate(username=user_name, password=user_pass)
             login(request, user)
-            return redirect('/accounts/profile')
-
-
+            return redirect(reverse('accounts:profile_detail'))
 
     else:
         signup_form = SignupForm()
@@ -40,7 +40,7 @@ def profile_edit(request):
             profile_form.save(commit=False)
             profile_form.user = request.user
             profile_form.save()
-            return redirect('/accounts/profile')
+            return redirect(reverse('accounts:profile_detail'))
     
     else:
         user_form = UserForm(instance=request.user)

@@ -13,7 +13,7 @@ def product_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'Product/product_list.html', {'list':page_obj, 'page':page_number})
+    return render(request, 'Product/product_list.html', {'list':page_obj})
 
 
 def product_detail(request, product_slug):

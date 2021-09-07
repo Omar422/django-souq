@@ -7,7 +7,7 @@
     <div class="col-md-5 mx-auto">
         <div class="card-group">
             <div class="card">
-                <a href="{% url 'products:product_detail' product.prdslug %}">
+                <a href="{{product.get_absolute_url}}">
                     {% if product.prdimage %}
                     <img class="card-img-top" src="{{product.prdimage.url}}" alt="" height="200">
                     {% else %}

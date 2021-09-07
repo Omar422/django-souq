@@ -1,8 +1,20 @@
-<h2>Profile Edit Page</h2>
+{% extends "base_generic.html" %}
+{% load bootstrap4 %}
 
-<form method='POST'>
-    {% csrf_token %}
-    {{user_form}}
-    {{profile_form}}
-    <input type="submit" value="Update Profile">
-</form>
+{% block content %}
+
+<div class="row">
+    <div class="container">
+        <h2>Profile Edit Page</h2>
+        <form method="POST" class="form">
+            {% csrf_token %}
+            {% bootstrap_form user_form %}
+            {% bootstrap_form profile_form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary mt-2">Update</button>
+            {% endbuttons %}
+        </form>
+
+    </div>
+</div>
+{% endblock content %}
